@@ -30,8 +30,8 @@
   "homepage": "https://github.com/MovingImage24/mi-angular-alert-service#readme",
   "devDependencies": {
     "angular": "^1.4.3",
-    "david": "~6.1.1",
-    "jasmine-core": "^2.1.3",
+    "david": "^6.1.6",
+    "jasmine-core": "^2.3.4",
     "karma": "^0.13.6",
     "karma-browserify": "^4.0.0",
     "karma-coverage": "^0.4.0",
