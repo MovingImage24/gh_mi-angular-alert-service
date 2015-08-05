@@ -2,6 +2,14 @@
   "name": "mi-angular-alert-service",
   "version": "1.0.0",
   "description": "Alert Service for Angular 1 ",
+  "author": {
+    "name": "MovingIMAGE24",
+    "url": "http://www.movingimage24.com/"
+  },
+  "contributors": [
+    {"name": "Alexander Miehe", "email": "alexander.miehe@movingimage.com"},
+    {"name": "Enrico Hoffmann", "email": "enrico.hoffmann@movingimage.com"}
+  ],
   "main": "dist/mi-angular-alert-service.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,7 +23,6 @@
     "alert-service",
     "bootstrap"
   ],
-  "author": "Alexander Miehe <alexander.miehe@movingimage.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/MovingImage24/mi-angular-alert-service/issues"
