@@ -1,4 +1,8 @@
 'use strict';
+
+/**
+ * @ngInject
+ */
 function StateChangeErrorHandlerProvider($injector) {
 
   var errorStates = [];

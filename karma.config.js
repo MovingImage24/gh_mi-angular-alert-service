@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = function(karma) {
+module.exports = function (karma) {
   karma.set({
 
-    frameworks: [ 'jasmine', 'browserify' ],
+    frameworks: ['jasmine'],
 
     files: [
       'node_modules/angular/angular.js',
@@ -20,27 +20,31 @@ module.exports = function(karma) {
       dir: 'coverage/',
       reporters: [
         // reporters not supporting the `file` property
-        { type: 'html', subdir: 'html' },
-        { type: 'lcov', subdir: '.', file: 'lcov.info' }
+        {type: 'html', subdir: 'html'},
+        {type: 'lcov', subdir: '.', file: 'lcov.info'}
       ],
 
       file: 'cobertura-coverage.xml'
     },
     preprocessors: {
-      'test/**/*Spec.js': [ 'browserify'],
-      'src/index.js': [ 'browserify']
+      'test/**/*Spec.js': ['webpack'],
+      'src/index.js': ['webpack']
     },
 
-    browsers: [ 'PhantomJS' ],
+    browsers: ['PhantomJS'],
 
     logLevel: karma.LOG_INFO,
 
     singleRun: true,
 
-    // browserify configuration
-    browserify: {
-      debug: true,
-      transform: ['browserify-ngannotate', 'browserify-istanbul']
+    webpack: {
+      module: {
+        postLoaders: [{ // << add subject as webpack's postloader
+          test: /\.js$/,
+          exclude: /(test|node_modules)\//,
+          loader: 'istanbul-instrumenter'
+        }]
+      }
     }
   });
 };

@@ -1,4 +1,8 @@
 'use strict';
+
+/**
+ * @ngInject
+ */
 function ResponseErrorInterceptorProvider($injector) {
 
   var errors = [];

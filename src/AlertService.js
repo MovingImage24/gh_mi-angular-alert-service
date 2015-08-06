@@ -1,4 +1,8 @@
 'use strict';
+
+/**
+ * @ngInject
+ */
 function AlertService($rootScope, $timeout, ALERT_LEVELS, $injector) {
 
   // create an array of alerts available globally
