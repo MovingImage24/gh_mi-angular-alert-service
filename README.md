@@ -3,6 +3,7 @@
 [![GitHub version](https://badge.fury.io/gh/movingimage24%2Fmi-angular-alert-service.svg)](http://badge.fury.io/gh/movingimage24%2Fmi-angular-alert-service)
 [![npm version](https://img.shields.io/npm/v/mi-angular-alert-service.svg)](https://www.npmjs.com/package/mi-angular-alert-service)
 [![Build Status](https://img.shields.io/travis/MovingImage24/mi-angular-alert-service.svg)](https://travis-ci.org/MovingImage24/mi-angular-alert-service)
+[![Coverage Status](https://coveralls.io/repos/MovingImage24/mi-angular-alert-service/badge.svg?branch=master&service=github)](https://coveralls.io/github/MovingImage24/mi-angular-alert-service?branch=master)
 [![dependency Status](https://david-dm.org/MovingImage24/mi-angular-alert-service/status.svg)](https://david-dm.org/MovingImage24/mi-angular-alert-service#info=dependencies)
 [![devDependency Status](https://david-dm.org/MovingImage24/mi-angular-alert-service/dev-status.svg)](https://david-dm.org/MovingImage24/mi-angular-alert-service#info=devDependencies)
 [![License](https://img.shields.io/github/license/MovingImage24/mi-angular-alert-service.svg)](https://github.com/MovingImage24/mi-angular-alert-service/blob/master/LICENSE)
