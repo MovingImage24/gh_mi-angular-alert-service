@@ -28,6 +28,9 @@
     "url": "https://github.com/MovingImage24/mi-angular-alert-service/issues"
   },
   "homepage": "https://github.com/MovingImage24/mi-angular-alert-service#readme",
+  "engines": {
+    "node": ">=0.10.1"
+  },
   "devDependencies": {
     "angular": "^1.4.3",
     "david": "^6.1.6",
