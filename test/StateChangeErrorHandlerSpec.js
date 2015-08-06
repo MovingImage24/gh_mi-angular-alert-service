@@ -27,9 +27,9 @@ describe('Service :  StateChangeErrorHandler', function () {
     });
 
     it('should', angular.mock.inject(function () {
-      expect(function(){provider.addErrorHandling('dummyUri', 'GET', 'error')})
-        .toThrowError('mi.AlertService.StateChangeErrorHandlerProvider:No $urlMatcherFactoryProvider was found. This is a dependency to AngularUI Router.')
-
+      expect(function () {
+        provider.addErrorHandling('dummyUri', 'GET', 'error')
+      }).toThrowError('mi.AlertService.StateChangeErrorHandlerProvider:No $urlMatcherFactoryProvider was found. This is a dependency to AngularUI Router.')
     }));
   });
 
