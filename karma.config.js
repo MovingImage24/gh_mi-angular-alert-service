@@ -13,7 +13,7 @@ module.exports = function(karma) {
       'test/**/*Spec.js'
     ],
 
-    reporters: ['progress', 'coverage'],
+    reporters: ['progress', 'coverage', 'coveralls'],
 
 
     coverageReporter: {
@@ -21,7 +21,7 @@ module.exports = function(karma) {
       reporters: [
         // reporters not supporting the `file` property
         { type: 'html', subdir: 'html' },
-        { type: 'cobertura', subdir: '.', file: 'cobertura-coverage.xml' }
+        { type: 'lcov', subdir: '.', file: 'lcov.info' }
       ],
 
       file: 'cobertura-coverage.xml'
