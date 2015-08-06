@@ -7,12 +7,21 @@
     "url": "http://www.movingimage24.com/"
   },
   "contributors": [
-    {"name": "Alexander Miehe", "email": "alexander.miehe@movingimage.com"},
-    {"name": "Enrico Hoffmann", "email": "enrico.hoffmann@movingimage.com"}
+    {
+      "name": "Alexander Miehe",
+      "email": "alexander.miehe@movingimage.com"
+    },
+    {
+      "name": "Enrico Hoffmann",
+      "email": "enrico.hoffmann@movingimage.com"
+    }
   ],
   "main": "dist/mi-angular-alert-service.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build:js & npm run build:js-min",
+    "build:js": "browserify -d src/index.js -o dist/mi-angular-alert-service.js",
+    "build:js-min": "browserify -d src/index.js -p [minifyify --no-map]  -o dist/mi-angular-alert-service.min.js",
+    "test": "node_modules/karma/bin/karma start karma.config.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +42,11 @@
   },
   "devDependencies": {
     "angular": "^1.4.3",
+    "angular-mocks": "^1.4.3",
+    "angular-ui-router": "^0.2.15",
+    "browserify": "^10.0.0",
+    "browserify-istanbul": "^0.2.1",
+    "browserify-ngannotate": "^1.0",
     "david": "^6.1.6",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.6",
@@ -40,6 +54,7 @@
     "karma-coverage": "^0.4.0",
     "karma-jasmine": "^0.3.5",
     "karma-junit-reporter": "^0.3.0",
-    "karma-phantomjs-launcher": "^0.2.0"
+    "karma-phantomjs-launcher": "^0.2.0",
+    "minifyify": "^7.0.3"
   }
 }

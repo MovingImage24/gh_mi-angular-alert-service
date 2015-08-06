@@ -1,10 +1,12 @@
 'use strict';
-function ResponseErrorInterceptorProvider($urlMatcherFactoryProvider) {
+function ResponseErrorInterceptorProvider($injector) {
 
   var errors = [];
   var stateName;
 
-  var ResponseErrorInterceptorProvider = {
+
+
+  var provider = {
     addErrorHandling: addErrorHandling,
     $get: ['$q', '$rootScope', 'StateChangeErrorHandler', 'AlertService',
       function ($q, $rootScope, StateChangeErrorHandler, AlertService) {
@@ -84,7 +86,7 @@ function ResponseErrorInterceptorProvider($urlMatcherFactoryProvider) {
       }]
   };
 
-  return ResponseErrorInterceptorProvider;
+  return provider;
 
   ////////
 
@@ -102,8 +104,12 @@ function ResponseErrorInterceptorProvider($urlMatcherFactoryProvider) {
    */
   function addErrorHandling(errorUrl, method, errorMessage) {
 
+    if ($injector.has('$urlMatcherFactoryProvider') === false) {
+      throw new Error('mi.AlertService.ResponseErrorInterceptorProvider:No $urlMatcherFactoryProvider was found. This is a dependency to AngularUI Router.');
+    }
+
     errors.push({
-      errorUrl: $urlMatcherFactoryProvider.compile(errorUrl),
+      errorUrl: $injector.get('$urlMatcherFactoryProvider').compile(errorUrl),
       method: method,
       errorMessage: errorMessage
     });

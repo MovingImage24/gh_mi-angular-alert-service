@@ -17,7 +17,7 @@ A customizable alert service for AngularJS apps.
 Install with [npm](https://www.npmjs.com/)
 
 ```sh
-$ npm i mi-angular-alert-service --save-dev
+$ npm i mi-angular-alert-service --save
 ```
 
 

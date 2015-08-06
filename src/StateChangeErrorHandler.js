@@ -1,5 +1,5 @@
 'use strict';
-function StateChangeErrorHandlerProvider($urlMatcherFactoryProvider) {
+function StateChangeErrorHandlerProvider($injector) {
 
   var errorStates = [];
 
@@ -47,9 +47,13 @@ function StateChangeErrorHandlerProvider($urlMatcherFactoryProvider) {
 
   function addErrorHandling(state, errorUrl, method, errorMessage, handleMethod) {
 
+    if ($injector.has('$urlMatcherFactoryProvider') === false) {
+      throw new Error('mi.AlertService.StateChangeErrorHandlerProvider:No $urlMatcherFactoryProvider was found. This is a dependency to AngularUI Router.');
+    }
+
     errorStates.push({
       state: state,
-      errorUrl: $urlMatcherFactoryProvider.compile(errorUrl),
+      errorUrl: $injector.get('$urlMatcherFactoryProvider').compile(errorUrl),
       method: method,
       errorMessage: errorMessage,
       handleMethod: handleMethod
