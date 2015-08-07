@@ -22,9 +22,7 @@ module.exports = function (karma) {
         // reporters not supporting the `file` property
         {type: 'html', subdir: 'html'},
         {type: 'lcov', subdir: '.', file: 'lcov.info'}
-      ],
-
-      file: 'cobertura-coverage.xml'
+      ]
     },
     preprocessors: {
       'test/**/*Spec.js': ['webpack'],
