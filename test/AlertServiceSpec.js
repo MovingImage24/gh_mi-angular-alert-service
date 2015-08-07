@@ -6,11 +6,13 @@ describe('Service:AlertService', function () {
     angular.mock.module('mi.AlertService');
   });
 
-  describe('tests with $translate', function() {
+  describe('tests with $translate', function () {
     var $translate = jasmine.createSpyObj('$translate', ['instant']);
     beforeEach(function () {
       angular.mock.module(function ($provide) {
-        $provide.factory('$translate', function(){ return $translate;});
+        $provide.factory('$translate', function () {
+          return $translate;
+        });
       });
     });
 
@@ -46,7 +48,7 @@ describe('Service:AlertService', function () {
 
   });
 
-  describe('tests without $translate', function() {
+  describe('tests without $translate', function () {
     it('should close an alert by id', angular.mock.inject(function (AlertService, $rootScope) {
       // prepare
       expect($rootScope.alerts.length).toBe(0);
