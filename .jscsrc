@@ -1,9 +1,6 @@
 {
   "excludeFiles": [
-    "src/ngLocale/**",
-    "node_modules/**",
-    "scripts/**",
-    "web/**"
+    "node_modules/**"
   ],
   "disallowKeywords": ["with"],
   "disallowKeywordsOnNewLine": ["else"],
