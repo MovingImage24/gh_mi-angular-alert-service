@@ -2,3 +2,11 @@ language: node_js
 node_js:
   - "0.12"
   - "0.10"
+deploy:
+  provider: npm
+  email: dasrick@gmail.com
+  api_key:
+    secure: IHGizjoV0EBAcZ6NtB87C7iANfXqB0Rf+T5LASPlVJkHARP3YK34ATWM5l2E/4Q8fqsiyEMACkvmUu9f/Jtb+YRD32Q2ZjmILrAXfQPKz6gHFJdJuYXVU3H7swSFzTubrXzd5nebjQne7oGAZVH1sYK+aBD6Vb5cC5S8XzRB/KwTE+vOU9Y2OvX7x3SwmZmia17CYp5Po+mxXrk+2O0H9Z3znha4H2lUu9jlaTvwQfFv6HTmBAL9PH04Cm7snrU4Pmi7/fC+pWvyczo/WLy9wpuFk+R4HM9j91JF+Klqxe/RsE9T4yWMPpipjOokv1yDQEX2RZnaZINspcGSiauqamrMdPdDS9CKd6RxG2Y03jwjTIBpMQ8w/8p693k4A430lKolHQsD48bt2HBQZHppsfjFAflZIsR+Yr6ZwD6sVpVpbJyvFPJila/gVXiQ9rtqjO4ccm7EMfkt7JxAXs+eaLojorERL0d5+s0mzoi6/hoW8Y9RkzZyhFTx8Y0NEIuoqwn0eznSvF6mlh37T90SL1AJIhpFuWJB2nWMt78ucDS93LEnaNcI4F54UKsw7CiuK3Lfz0Cpu/oMeW2rXzCxMPyJXhzgsfNBwMOfq6QCCbieoeF5jtRYIB1gXlCrg4A0rzLVqq+EkGvXmnkgMTnDZ58/3UXMh4CZN+jbcDgU7EE=
+  on:
+    tags: true
+    repo: MovingImage24/mi-angular-alert-service
