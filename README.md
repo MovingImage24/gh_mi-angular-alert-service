@@ -25,7 +25,35 @@ $ npm i mi-angular-alert-service --save
 
 ## Usage
 
-...
+**Attention**, the integration of bootstrap is required for the example ...
+
+
+```sh
+# app.js
+require('angular-bootstrap');
+require('mi-angular-alert-service');
+var requires = [
+  'ui.bootstrap',
+  'mi.AlertService'
+];
+angular.module('sample-app', requires)
+  // defaults for alert service
+  .constant('ALERT_LEVELS', {
+    danger: {timeout: 10000},
+    warning: {timeout: 5000},
+    success: {timeout: 3000},
+    info: {timeout: 3000}
+  })
+;
+angular.bootstrap(document, ['sample-app']);
+```
+
+```html
+# index.html
+<div class="global-alerts" ng-cloak>
+    <div alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">{{alert.msg}}</div>
+</div>
+```
 
 
 ## Tests
