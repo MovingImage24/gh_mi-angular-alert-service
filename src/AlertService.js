@@ -39,9 +39,7 @@ function AlertService($rootScope, $timeout, ALERT_LEVELS, $injector) {
       timeout = (type in ALERT_LEVELS) ? ALERT_LEVELS[type].timeout : 0;
     }
 
-    // error warnings (type 'danger') must not close after timeout,
-    // but shall be closed manually
-    if (timeout > 0 && alert.type !== 'danger') {
+    if (timeout > 0) {
       $timeout(function () {
         alertService.closeAlert(alert);
       }, timeout);
