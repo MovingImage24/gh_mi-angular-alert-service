@@ -12,3 +12,4 @@ deploy:
   on:
     tags: true
     repo: MovingImage24/mi-angular-alert-service
+    node: '4.0'
