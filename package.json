@@ -57,6 +57,7 @@
     "karma-phantomjs-launcher": "^0.2.0",
     "karma-webpack": "^1.7.0",
     "ng-annotate-webpack-plugin": "^0.1.2",
+    "phantomjs": "^1.9.18",
     "webpack": "^1.11.0"
   }
 }
