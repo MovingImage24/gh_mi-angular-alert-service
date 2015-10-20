@@ -18,10 +18,10 @@
   ],
   "main": "dist/mi-angular-alert-service.js",
   "scripts": {
-    "build": "npm run build:js & npm run build:js-min",
+    "build": "npm run build:js && npm run build:js-min",
     "prebuild:js": "jscs ./src ./test",
     "build:js": "webpack --config webpack.config.js src/index.js dist/mi-angular-alert-service.js",
-    "build:js-min": "webpack -p --config webpack.min.config.js src/index.js dist/mi-angular-alert-service.min.js",
+    "build:js-min": "webpack --config webpack.min.config.js src/index.js dist/mi-angular-alert-service.min.js",
     "test": "node_modules/karma/bin/karma start karma.config.js"
   },
   "repository": {

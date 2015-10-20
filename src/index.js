@@ -1,5 +1,7 @@
 'use strict';
-
+/**
+ * @ngInject
+ */
 var AlertService = require('./AlertService'),
     StateChangeErrorHandler = require('./StateChangeErrorHandler'),
     ResponseErrorInterceptor = require('./ResponseErrorInterceptor');
