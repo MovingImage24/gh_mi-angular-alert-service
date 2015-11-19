@@ -54,7 +54,7 @@ describe('Service :  ResponseErrorInterceptor', function () {
         ResponseErrorInterceptorProvider.addErrorHandling('http://dummy.de/list/{vid}', 'GET', 'error getting item');
         ResponseErrorInterceptorProvider.addErrorHandling('http://dummy.de/list?search_term', 'GET', 'error search-param');
         ResponseErrorInterceptorProvider.addErrorHandling('http://dummy.de/list?limit&offset', 'GET', 'error paging-param');
-        ResponseErrorInterceptorProvider.addErrorHandling('http://dummy.de/list', 'DELETE', 'error delete');
+        ResponseErrorInterceptorProvider.addErrorHandling('http://dummy.de/list', 'DELETE', 'error delete', {statusCodes: [403]});
       });
 
       angular.mock.inject(function ($injector) {
@@ -202,6 +202,18 @@ describe('Service :  ResponseErrorInterceptor', function () {
         status: 400
       });
       expect(AlertService.add).toHaveBeenCalledWith('danger', 'error default');
+    });
+
+    it('should show no error message because the error code is ', function () {
+      $rootScope.$broadcast('$stateChangeStart', {name: 'stateName'});
+      $rootScope.$apply();
+      StateChangeErrorHandler.hasStateError.and.returnValue(false);
+
+      interceptor.responseError({
+        config: {url: 'http://dummy.de/list', method: 'DELETE'},
+        status: 403
+      });
+      expect(AlertService.add).not.toHaveBeenCalled();
     });
 
   });

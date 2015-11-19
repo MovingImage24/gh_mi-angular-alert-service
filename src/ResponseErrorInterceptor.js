@@ -51,6 +51,7 @@ function ResponseErrorInterceptorProvider($injector) {
         function isErrorValidator(errorValidator, error) {
           return matchUrl(errorValidator, error.config) &&
             error.config.method === errorValidator.method &&
+            validateExclude(errorValidator.exclude, error.status) &&
             StateChangeErrorHandler.hasStateError(stateName) === false;
         }
 
@@ -69,6 +70,20 @@ function ResponseErrorInterceptorProvider($injector) {
           }
 
           return validator.errorMessage.default;
+        }
+
+        /**
+         * @param {Object=} exclude
+         * @param {number} statusCode
+         *
+         * @returns {boolean}
+         */
+        function validateExclude(exclude, statusCode) {
+          if (!angular.isObject(exclude) || !angular.isArray(exclude.statusCodes) || exclude.statusCodes.length === 0) {
+            return true;
+          }
+
+          return exclude.statusCodes.indexOf(statusCode) === -1;
         }
 
         function matchUrl(validator, config) {
@@ -95,18 +110,21 @@ function ResponseErrorInterceptorProvider($injector) {
   ////////
 
   /**
-   *
    * example for PATCH Request:
    * 'url', 'PATCH', 'error-translation-key'
    *
    * example for exclude http-status:400 with response error-code:100
-   * 'url', 'PATCH', 'error-translation-key', [{status: 400, code: 100, message: 'translation.key}]
+   * 'url', 'PATCH', {custom: [{status: 400,code: 100,message: 'my custom error message'}], default: 'error default'}
    *
-   * @param errorUrl
-   * @param method
-   * @param errorMessage
+   * example for exclude some status codes
+   * 'url', 'PATCH', 'error-translation-key', {statusCodes: [400, 401, 402, 403]}
+   *
+   * @param {string} errorUrl
+   * @param {string} method
+   * @param {string|Object} errorMessage
+   * @param {Object=} exclude
    */
-  function addErrorHandling(errorUrl, method, errorMessage) {
+  function addErrorHandling(errorUrl, method, errorMessage, exclude) {
 
     if ($injector.has('$urlMatcherFactoryProvider') === false) {
       throw new Error('mi.AlertService.ResponseErrorInterceptorProvider:No $urlMatcherFactoryProvider was found. This is a dependency to AngularUI Router.');
@@ -115,7 +133,8 @@ function ResponseErrorInterceptorProvider($injector) {
     errors.push({
       errorUrl: $injector.get('$urlMatcherFactoryProvider').compile(errorUrl),
       method: method,
-      errorMessage: errorMessage
+      errorMessage: errorMessage,
+      exclude: exclude
     });
   }
 
