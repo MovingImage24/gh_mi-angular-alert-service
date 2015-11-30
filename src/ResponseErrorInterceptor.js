@@ -8,8 +8,6 @@ function ResponseErrorInterceptorProvider($injector) {
   var errors = [];
   var stateName;
 
-
-
   var provider = {
     addErrorHandling: addErrorHandling,
     $get: ['$q', '$rootScope', 'StateChangeErrorHandler', 'AlertService',

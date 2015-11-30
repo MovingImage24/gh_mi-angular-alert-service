@@ -15,7 +15,6 @@ module.exports = function (karma) {
 
     reporters: ['progress', 'coverage', 'coveralls'],
 
-
     coverageReporter: {
       dir: 'coverage/',
       reporters: [
