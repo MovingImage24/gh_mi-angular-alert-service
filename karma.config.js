@@ -18,9 +18,8 @@ module.exports = function (karma) {
     coverageReporter: {
       dir: 'coverage/',
       reporters: [
-        // reporters not supporting the `file` property
-        {type: 'html', subdir: 'html'},
-        {type: 'lcov', subdir: '.', file: 'lcov.info'}
+        { type: 'html', subdir: 'report-html' },
+        { type: 'lcov', subdir: 'report-lcov' }
       ]
     },
     preprocessors: {
