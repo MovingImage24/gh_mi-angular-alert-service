@@ -44,6 +44,6 @@ declare namespace angular.mi.alertService {
          * @param {string|Object} errorMessage
          * @param {Object=} exclude
          */
-        addErrorHandling(errorUrl: string, method: string, errorMessage: string | IErrorMessage, exclude?: IExclude)
+        addErrorHandling(errorUrl: string, method: string, errorMessage: string | IErrorMessage, exclude?: IExclude):void
     }
 }
