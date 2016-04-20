@@ -50,6 +50,7 @@ function ResponseErrorInterceptorProvider($injector) {
           return matchUrl(errorValidator, error.config) &&
             error.config.method === errorValidator.method &&
             validateExclude(errorValidator.exclude, error.status) &&
+            validateInclude(errorValidator.include, error.status) &&
             StateChangeErrorHandler.hasStateError(stateName) === false;
         }
 
@@ -82,6 +83,14 @@ function ResponseErrorInterceptorProvider($injector) {
           }
 
           return exclude.statusCodes.indexOf(statusCode) === -1;
+        }
+
+        function validateInclude(include, statusCode) {
+          if(!angular.isObject(include) || !angular.isArray(include.statusCodes) || include.statusCodes.length === 0) {
+            return true;
+          }
+
+          return include.statusCodes.indexOf(statusCode) !== -1;
         }
 
         function matchUrl(validator, config) {
@@ -122,7 +131,7 @@ function ResponseErrorInterceptorProvider($injector) {
    * @param {string|Object} errorMessage
    * @param {Object=} exclude
    */
-  function addErrorHandling(errorUrl, method, errorMessage, exclude) {
+  function addErrorHandling(errorUrl, method, errorMessage, exclude, include) {
 
     if ($injector.has('$urlMatcherFactoryProvider') === false) {
       throw new Error('mi.AlertService.ResponseErrorInterceptorProvider:No $urlMatcherFactoryProvider was found. This is a dependency to AngularUI Router.');
@@ -132,7 +141,8 @@ function ResponseErrorInterceptorProvider($injector) {
       errorUrl: $injector.get('$urlMatcherFactoryProvider').compile(errorUrl),
       method: method,
       errorMessage: errorMessage,
-      exclude: exclude
+      exclude: exclude,
+      include: include
     });
   }
 
