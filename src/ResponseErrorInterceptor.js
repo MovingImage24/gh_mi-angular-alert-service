@@ -86,7 +86,7 @@ function ResponseErrorInterceptorProvider($injector) {
         }
 
         function validateInclude(include, statusCode) {
-          if(!angular.isObject(include) || !angular.isArray(include.statusCodes) || include.statusCodes.length === 0) {
+          if (!angular.isObject(include) || !angular.isArray(include.statusCodes) || include.statusCodes.length === 0) {
             return true;
           }
 

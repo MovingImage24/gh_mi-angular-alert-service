@@ -50,6 +50,9 @@ describe('Service :  ResponseErrorInterceptor', function () {
         };
 
         ResponseErrorInterceptorProvider.addErrorHandling('dummyUri', 'GET', 'error');
+        ResponseErrorInterceptorProvider.addErrorHandling('dummyUriInclude', 'GET', 'error', null, {statusCodes: [403]});
+        ResponseErrorInterceptorProvider.addErrorHandling('dummyUriIncludeExclude', 'GET', 'error', {statusCodes: [400]}, {statusCodes: [403]});
+        ResponseErrorInterceptorProvider.addErrorHandling('dummyUriIncludeExcludeIdentical', 'GET', 'error', {statusCodes: [403]}, {statusCodes: [403]});
         ResponseErrorInterceptorProvider.addErrorHandling('dummyFilterUri', 'GET', youtubeUpdateItemMessages);
         ResponseErrorInterceptorProvider.addErrorHandling('http://dummy.de/list/{vid}', 'GET', 'error getting item');
         ResponseErrorInterceptorProvider.addErrorHandling('http://dummy.de/list?search_term', 'GET', 'error search-param');
@@ -211,6 +214,60 @@ describe('Service :  ResponseErrorInterceptor', function () {
 
       interceptor.responseError({
         config: {url: 'http://dummy.de/list', method: 'DELETE'},
+        status: 403
+      });
+      expect(AlertService.add).not.toHaveBeenCalled();
+    });
+
+    it('should display error message if the status code is included', function () {
+      $rootScope.$broadcast('$stateChangeStart', {name: 'stateName'});
+      $rootScope.$apply();
+      StateChangeErrorHandler.hasStateError.and.returnValue(false);
+
+      interceptor.responseError({
+        config: {url: 'dummyUriInclude', method: 'GET'},
+        data: {code: 100, message: 'some error'},
+        status: 403
+      });
+      expect(AlertService.add).toHaveBeenCalledWith('danger', 'error');
+      expect(AlertService.add.calls.count()).toEqual(1);
+    });
+
+    it('should not display error message if the status code is not included', function () {
+      $rootScope.$broadcast('$stateChangeStart', {name: 'stateName'});
+      $rootScope.$apply();
+      StateChangeErrorHandler.hasStateError.and.returnValue(false);
+
+      interceptor.responseError({
+        config: {url: 'dummyUriInclude', method: 'GET'},
+        data: {code: 100, message: 'some error'},
+        status: 400
+      });
+      expect(AlertService.add).not.toHaveBeenCalled();
+    });
+
+    it('should display error message if the status code is included and not excluded', function () {
+      $rootScope.$broadcast('$stateChangeStart', {name: 'stateName'});
+      $rootScope.$apply();
+      StateChangeErrorHandler.hasStateError.and.returnValue(false);
+
+      interceptor.responseError({
+        config: {url: 'dummyUriIncludeExclude', method: 'GET'},
+        data: {code: 100, message: 'some error'},
+        status: 403
+      });
+      expect(AlertService.add).toHaveBeenCalledWith('danger', 'error');
+      expect(AlertService.add.calls.count()).toEqual(1);
+    });
+
+    it('should not display error message if the status code is included and excluded', function () {
+      $rootScope.$broadcast('$stateChangeStart', {name: 'stateName'});
+      $rootScope.$apply();
+      StateChangeErrorHandler.hasStateError.and.returnValue(false);
+
+      interceptor.responseError({
+        config: {url: 'dummyUriIncludeExcludeIdentical', method: 'GET'},
+        data: {code: 100, message: 'some error'},
         status: 403
       });
       expect(AlertService.add).not.toHaveBeenCalled();
