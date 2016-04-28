@@ -34,12 +34,12 @@ describe('Service :  ResponseErrorInterceptor', function () {
   });
 
   describe('tests with angular-ui-router', function () {
-
+    var provider;
     beforeEach(function () {
       angular.mock.module('ui.router.util');
 
       angular.mock.module(function (ResponseErrorInterceptorProvider) {
-
+        provider=ResponseErrorInterceptorProvider
         youtubeUpdateItemMessages = {
           custom: [{
             status: 400,
@@ -49,12 +49,15 @@ describe('Service :  ResponseErrorInterceptor', function () {
           default: 'error default'
         };
 
-        ResponseErrorInterceptorProvider.addErrorHandling('dummyUri', 'GET', 'error');
-        ResponseErrorInterceptorProvider.addErrorHandling('dummyFilterUri', 'GET', youtubeUpdateItemMessages);
-        ResponseErrorInterceptorProvider.addErrorHandling('http://dummy.de/list/{vid}', 'GET', 'error getting item');
-        ResponseErrorInterceptorProvider.addErrorHandling('http://dummy.de/list?search_term', 'GET', 'error search-param');
-        ResponseErrorInterceptorProvider.addErrorHandling('http://dummy.de/list?limit&offset', 'GET', 'error paging-param');
-        ResponseErrorInterceptorProvider.addErrorHandling('http://dummy.de/list', 'DELETE', 'error delete', {statusCodes: [403]});
+        provider.addErrorHandling('dummyUri', 'GET', 'error');
+        provider.addErrorHandling('dummyUriInclude', 'GET', 'error', null, {statusCodes: [403]});
+        provider.addErrorHandling('dummyFilterUri', 'GET', youtubeUpdateItemMessages);
+        provider.addErrorHandling('http://dummy.de/list/{vid}', 'GET', 'error getting item');
+        provider.addErrorHandling('http://dummy.de/list?search_term', 'GET', 'error search-param');
+        provider.addErrorHandling('http://dummy.de/list?limit&offset', 'GET', 'error paging-param');
+        provider.addErrorHandling('http://dummy.de/list', 'DELETE', 'error delete', {statusCodes: [403]});
+        provider.addErrorHandling('dummyUriExcludeIncludeNull', 'GET', 'error', {statusCodes: [400]}, null)
+        provider.addErrorHandling('dummyUriExcludeNullIncludeNull', 'GET', 'error', null, null)
       });
 
       angular.mock.inject(function ($injector) {
@@ -215,6 +218,67 @@ describe('Service :  ResponseErrorInterceptor', function () {
       });
       expect(AlertService.add).not.toHaveBeenCalled();
     });
+
+    it('should display error message if the status code is included', function () {
+      $rootScope.$broadcast('$stateChangeStart', {name: 'stateName'});
+      $rootScope.$apply();
+      StateChangeErrorHandler.hasStateError.and.returnValue(false);
+
+      interceptor.responseError({
+        config: {url: 'dummyUriInclude', method: 'GET'},
+        data: {code: 100, message: 'some error'},
+        status: 403
+      });
+      expect(AlertService.add).toHaveBeenCalledWith('danger', 'error');
+      expect(AlertService.add.calls.count()).toEqual(1);
+    });
+
+    it('should not display error message if the status code is not included', function () {
+      $rootScope.$broadcast('$stateChangeStart', {name: 'stateName'});
+      $rootScope.$apply();
+      StateChangeErrorHandler.hasStateError.and.returnValue(false);
+
+      interceptor.responseError({
+        config: {url: 'dummyUriInclude', method: 'GET'},
+        data: {code: 100, message: 'some error'},
+        status: 400
+      });
+      expect(AlertService.add).not.toHaveBeenCalled();
+    });
+
+    it('should not throw an error if exclude and include are set but include is null', function () {
+      $rootScope.$broadcast('$stateChangeStart', {name: 'stateName'});
+      $rootScope.$apply();
+      StateChangeErrorHandler.hasStateError.and.returnValue(false);
+
+      interceptor.responseError({
+        config: {url: 'dummyUriExcludeIncludeNull', method: 'GET'},
+        data: {code: 100, message: 'some error'},
+        status: 403
+      });
+      expect(AlertService.add).toHaveBeenCalledWith('danger', 'error');
+      expect(AlertService.add.calls.count()).toEqual(1);
+    });
+
+    it('should not throw an error if exclude and include are set but both are null', function () {
+      $rootScope.$broadcast('$stateChangeStart', {name: 'stateName'});
+      $rootScope.$apply();
+      StateChangeErrorHandler.hasStateError.and.returnValue(false);
+
+      interceptor.responseError({
+        config: {url: 'dummyUriExcludeNullIncludeNull', method: 'GET'},
+        data: {code: 100, message: 'some error'},
+        status: 403
+      });
+      expect(AlertService.add).toHaveBeenCalledWith('danger', 'error');
+      expect(AlertService.add.calls.count()).toEqual(1);
+    });
+
+    it('should throw an error if exclude and include are set', angular.mock.inject(function () {
+      expect(function () {
+        provider.addErrorHandling('dummyUriIncludeExcludeSet', 'GET', 'error', {statusCodes: [400]}, {statusCodes: [403]})
+      }).toThrowError('mi.AlertService.ResponseErrorInterceptorProvider:Include and exclude parameter must not be set at the same time.')
+    }));
 
   });
 

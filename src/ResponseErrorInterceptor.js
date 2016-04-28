@@ -50,6 +50,7 @@ function ResponseErrorInterceptorProvider($injector) {
           return matchUrl(errorValidator, error.config) &&
             error.config.method === errorValidator.method &&
             validateExclude(errorValidator.exclude, error.status) &&
+            validateInclude(errorValidator.include, error.status) &&
             StateChangeErrorHandler.hasStateError(stateName) === false;
         }
 
@@ -82,6 +83,14 @@ function ResponseErrorInterceptorProvider($injector) {
           }
 
           return exclude.statusCodes.indexOf(statusCode) === -1;
+        }
+
+        function validateInclude(include, statusCode) {
+          if (!angular.isObject(include) || !angular.isArray(include.statusCodes) || include.statusCodes.length === 0) {
+            return true;
+          }
+
+          return include.statusCodes.indexOf(statusCode) !== -1;
         }
 
         function matchUrl(validator, config) {
@@ -117,22 +126,30 @@ function ResponseErrorInterceptorProvider($injector) {
    * example for exclude some status codes
    * 'url', 'PATCH', 'error-translation-key', {statusCodes: [400, 401, 402, 403]}
    *
+   * example for include some status codes
+   * 'url', 'PATCH', 'error-translation-key', null, {statusCodes: [400, 403]}
+   *
    * @param {string} errorUrl
    * @param {string} method
    * @param {string|Object} errorMessage
    * @param {Object=} exclude
+   * @param {Object=} include
    */
-  function addErrorHandling(errorUrl, method, errorMessage, exclude) {
+  function addErrorHandling(errorUrl, method, errorMessage, exclude, include) {
 
     if ($injector.has('$urlMatcherFactoryProvider') === false) {
       throw new Error('mi.AlertService.ResponseErrorInterceptorProvider:No $urlMatcherFactoryProvider was found. This is a dependency to AngularUI Router.');
+    }
+    if (angular.isObject(exclude) && angular.isObject(include)){
+      throw new Error('mi.AlertService.ResponseErrorInterceptorProvider:Include and exclude parameter must not be set at the same time.');
     }
 
     errors.push({
       errorUrl: $injector.get('$urlMatcherFactoryProvider').compile(errorUrl),
       method: method,
       errorMessage: errorMessage,
-      exclude: exclude
+      exclude: exclude,
+      include: include
     });
   }
 
