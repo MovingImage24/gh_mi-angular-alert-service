@@ -9,9 +9,9 @@ node_js:
 before_install: npm install -g npm@'>=2.13.5'
 deploy:
   provider: npm
-  email: dasrick@gmail.com
+  email: admin@movingimage24.com
   api_key:
-    secure: GI690ggfd7MXr88g5BrXagtu7nvskoB9YBIhZAhu+9NzZzCOPA6rhNnURARGxL7sgJyRctqSffogpEO+Fq4Csrdio47k9Hw7Vb+0P7GAll2VqP9PWSqQz9/Q49b49lASRq1wp6u0I3NGyZ0+peWUmqe1WCXS+HFBEXsqWLR3b+IK5NpfADviDh0pytCyAY3qWCfk62sOrg13T5TEgnrM0FQXBwnhM4xGniIAP3cGwLxAi0VTJd5odOVmcMtSPtxVhqQVsg4rCCCoZ3jM8BhfKQVBXMYN88szpWgTcgr8kUUx0345E3NBmj8MGOsMhYg66Mo5nS1VQ0bZ4v4f6JiIdHXn74PE0KZkdI0HjTwiEmeRLVus1r6enzfF4P1gXOogsRcZpA6MMLogCmNttALXDl1ozCk4QfSPY5sP5M3mNP0QNUsF7ZPYa/YhSShIYu0YwAMPTzBf8QZpeSyOhHMmpEjcPTaHxX+f6n00WQJHLLR9jirMibuOIWkmybG/HSX8FBknXZT4Uyg4Rixg6Yn40ff+fSGWrs6+zSeg8zOXGffOpPDBs6naaxGuzc8imz+ivDG9ZjR0F7AotiocYs/IcINzGrqBJbi/Y9Qn0G/JNLvqPIq6eCBaNyO9UnDn/ghZOPMvIOY2PeGY53bdQHCKnBQUzEuRHeNmXdOFZF1Kx7E=
+    secure: $NPM_TOKEN
   on:
     tags: true
     repo: MovingImage24/mi-angular-alert-service
