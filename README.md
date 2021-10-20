@@ -1,3 +1,7 @@
+### This repository is deprecated!
+
+### The relevant repository can be found here [mi-angular-alert-service](https://github.com/movingimage-evp/mi-angular-alert-service)
+
 # Angular Alert Service
 
 [![GitHub version](https://badge.fury.io/gh/movingimage24%2Fmi-angular-alert-service.svg)](http://badge.fury.io/gh/movingimage24%2Fmi-angular-alert-service)
